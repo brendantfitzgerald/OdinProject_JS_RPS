@@ -15,15 +15,15 @@ function playerPlay(){
     var input = prompt("Rock, Paper, Scissors?")
     input = input.toUpperCase()
     if (!options.includes(input)){
-        console.log("Invalid Entry. Now you chose Rock.")
-        input = "ROCK"
+        input = computerPlay()
+        console.log("Invalid Entry. Now you chose " + input + ".")
     }
     return input
 }
 
 function playRound(computerSelection,playerSelection){
     if (playerSelection == computerSelection){
-        return("Draw, idiot.")
+        return("Draw, idiot. You both chose " + playerSelection + ".")
     }
     else if ((playerSelection == 'ROCK' && computerSelection == "PAPER") || (playerSelection == 'PAPER' && computerSelection == "SCISSORS") || (playerSelection == 'SCISSORS' && computerSelection == "ROCK")){
         return("You lose. " + computerSelection + " beats " + playerSelection +".")
@@ -33,9 +33,24 @@ function playRound(computerSelection,playerSelection){
     }
 }
 
+function game(){
+    var computerScore = 0
+    var playerScore = 0
+    var round
+    while (computerScore < 3 && playerScore < 3){
+        round = playRound(computerPlay(),playerPlay())
+        if (round.indexOf("win") != -1 ){
+            playerScore++;
+        }
+        else if (round.indexOf("lose") != -1 ){
+            computerScore++;
+        }
+        else {}
+        console.log(round)
+        console.log("You:" + playerScore + " | Computer:" + computerScore)
+    }
+}
+
 const options = ['ROCK','PAPER','SCISSORS']
-var computerSelection = computerPlay()
-var playerSelection = playerPlay()
-console.log(computerSelection)
-console.log(playerSelection)
-console.log(playRound(computerSelection,playerSelection))
+
+game()
